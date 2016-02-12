@@ -5,6 +5,7 @@ var path = require('path');
 var tsc = path.join(path.dirname(require.resolve("typescript")),"tsc.js");
 var tscScript = vm.createScript(fs.readFileSync(tsc, "utf8"), tsc);
 var libPath = path.join(path.dirname(require.resolve("typescript")), "lib.d.ts")
+var libPathES6 = path.join(path.dirname(require.resolve("typescript")), "lib.es6.d.ts")
 
 var options = {
   nodeLib: false,
@@ -58,6 +59,7 @@ function compileTS (module) {
     "--outDir",
     path.join(tmpDir, relativeFolder),
     libPath,
+    (options.target.toLowerCase() == 'es6') ? libPathES6 : null,
     options.nodeLib ? path.resolve(__dirname, "typings/node.d.ts") : null
   ].concat(options.compilerFlags).concat([
     module.filename
