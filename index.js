@@ -10,7 +10,8 @@ var options = {
   nodeLib: false,
   targetES5: true,
   moduleKind: 'commonjs',
-  exitOnError: true
+  exitOnError: true,
+  compilerFlags: []
 };
 
 module.exports = function(opts) {
@@ -57,9 +58,10 @@ function compileTS (module) {
     "--outDir",
     path.join(tmpDir, relativeFolder),
     libPath,
-    options.nodeLib ? path.resolve(__dirname, "typings/node.d.ts") : null,
+    options.nodeLib ? path.resolve(__dirname, "typings/node.d.ts") : null
+  ].concat(options.compilerFlags).concat([
     module.filename
-  ];
+  ]);
 
   var proc = merge(merge({}, process), {
     argv: compact(argv),
