@@ -8,7 +8,7 @@ var libPath = path.join(path.dirname(require.resolve("typescript")), "lib.d.ts")
 
 var options = {
   nodeLib: false,
-  targetES5: true,
+  target: 'ES5',
   moduleKind: 'commonjs',
   exitOnError: true,
   compilerFlags: []
@@ -54,7 +54,7 @@ function compileTS (module) {
     "tsc.js",
     "--nolib",
     "--target",
-    options.targetES5 ? "ES5" : "ES3", !! options.moduleKind ? "--module" : "", !! options.moduleKind ? options.moduleKind : "",
+    options.target, !! options.moduleKind ? "--module" : "", !! options.moduleKind ? options.moduleKind : "",
     "--outDir",
     path.join(tmpDir, relativeFolder),
     libPath,
